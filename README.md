@@ -1,16 +1,14 @@
-## Hi there 👋
+# kurowebgadge
+## About scouting policy
 
-<!--
-**kurowebgadge/kurowebgadge** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+```scala
+val (t, f) = scoutsStream().partition(s => {
+  s.source.registeredBy(this) || (s.from[Email] && s.recipient == "kisaragi.effective+jobs.handler@gmail.com")
+})
 
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+t.foreach(accept)
+f.foreach { s =>
+  requestPayment(s, jpy(100_000 + 105.86 * s.body.codePoints.count))
+  discard(s)
+}
+```
